@@ -1,26 +1,19 @@
-// src/pages/Dashboard/Student/AppliedTutors.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// Requires: npm install sweetalert2
 import Swal from 'sweetalert2'; 
 
 import LoadingPage from '../components/LoadingPage';
-// NEW Icons: FaPhone and FaEnvelope added for contact info modal
 import { FaUserGraduate, FaCheckCircle, FaTimesCircle, FaDollarSign, FaPhone, FaEnvelope } from 'react-icons/fa'; 
-import PaymentPage from './PaymentPage'; // Import PaymentPage component
+import PaymentPage from './PaymentPage';
 import useAuth from '../hooks/useAuth';
 
 const AppliedTutors = () => {
     const { user } = useAuth();
     const [applications, setApplications] = useState([]);
     const [loading, setLoading] = useState(true);
-    // State to hold the application data for the payment modal
     const [selectedApplicationForPayment, setSelectedApplicationForPayment] = useState(null); 
-    // State to hold contact details fetched after payment
     const [contactInfo, setContactInfo] = useState(null); 
     const BASE_URL = 'http://localhost:3000';
-
-    // Function to fetch applications for the student's posts
     const fetchAppliedTutors = () => {
         setLoading(true);
         const token = localStorage.getItem('tuition-access-token');
@@ -48,8 +41,6 @@ const AppliedTutors = () => {
             fetchAppliedTutors();
         }
     }, [user]);
-    
-    // R: Fetch Contact Info of the Hired Tutor
     const fetchContactInfo = async (tuitionId) => {
         setLoading(true);
         const token = localStorage.getItem('tuition-access-token');
@@ -66,7 +57,6 @@ const AppliedTutors = () => {
         }
     };
 
-    // Handle decision for REJECT (Direct update, no payment needed)
     const handleDecision = (id, newStatus) => {
         Swal.fire({
             title: `Confirm ${newStatus}?`,
@@ -95,7 +85,6 @@ const AppliedTutors = () => {
         });
     };
 
-    // Handle ACCEPT decision (Includes pre-confirmation and payment modal trigger)
     const handleAcceptClick = (application) => {
         
         Swal.fire({
@@ -108,13 +97,12 @@ const AppliedTutors = () => {
             preConfirm: async () => {
                 const token = localStorage.getItem('tuition-access-token');
                 try {
-                    // Temporarily set application status to 'Accepted' in DB
                     const res = await axios.patch(`${BASE_URL}/applications/status/${application._id}`, { status: 'Accepted' }, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
                     
                     if (res.data.modifiedCount > 0) {
-                        return true; // If successful, proceed to payment
+                        return true;
                     }
                     return false;
                 } catch (error) {
@@ -125,14 +113,12 @@ const AppliedTutors = () => {
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
             if (result.isConfirmed) {
-                // Open payment modal if temporary acceptance succeeded
                 setSelectedApplicationForPayment(application);
                 document.getElementById('payment_modal').showModal();
             }
         });
     };
 
-    // Status Badge Component
     const StatusBadge = ({ status }) => {
         let badgeClass = 'badge-info';
         let text = status;
@@ -150,7 +136,6 @@ const AppliedTutors = () => {
         
         return <span className={`badge ${badgeClass} text-white font-semibold`}>{text}</span>;
     };
-
 
     if (loading) {
         return <LoadingPage />;
@@ -192,14 +177,12 @@ const AppliedTutors = () => {
                                     <td><FaDollarSign className="inline-block mr-1"/> {app.expectedSalary.toLocaleString()} TK</td>
                                     <td><StatusBadge status={app.status} /></td>
                                     <td className="flex gap-2">
-                                        {/* Show buttons only if tuition is Approved and application status is 'Applied' */}
                                         {app.tuitionStatus === 'Approved' && app.status === 'Applied' && (
                                             <>
                                                 <button 
                                                     className="btn btn-success btn-sm text-white" 
-                                                    onClick={() => handleAcceptClick(app)} // Use the new function
-                                                    title="Accept Tutor"
-                                                >
+                                                    onClick={() => handleAcceptClick(app)}
+                                                    title="Accept Tutor">
                                                     <FaCheckCircle /> Accept & Pay
                                                 </button>
                                                 <button 
@@ -211,7 +194,6 @@ const AppliedTutors = () => {
                                                 </button>
                                             </>
                                         )}
-                                        {/* If the tuition post itself is already Hired/Paid, show appropriate status */}
                                         {app.tuitionStatus === 'Hired' && app.status === 'Accepted' && (
                                             <span className="badge badge-warning">Accepted (Awaiting Payment)</span>
                                         )}
@@ -219,8 +201,7 @@ const AppliedTutors = () => {
                                             <button 
                                                 className="btn btn-info btn-sm text-white" 
                                                 onClick={() => fetchContactInfo(app.tuitionId)}
-                                                title="View Tutor Contact Details"
-                                            >
+                                                title="View Tutor Contact Details">
                                                 <FaUserGraduate /> View Contact
                                             </button>
                                         )}
@@ -235,7 +216,6 @@ const AppliedTutors = () => {
                 </div>
             )}
 
-            {/* --- Payment Modal --- */}
             <dialog id="payment_modal" className="modal">
                 <div className="modal-box w-11/12 max-w-xl">
                     <h3 className="font-bold text-lg mb-4">Finalize Hiring and Pay Service Fee</h3>
@@ -249,27 +229,22 @@ const AppliedTutors = () => {
                                 tuitionSubject: selectedApplicationForPayment.tuitionSubject,
                                 tuitionClass: selectedApplicationForPayment.tuitionClass
                             }}
-                            // Callback to close modal and refresh list
                             onClose={(success) => {
                                 document.getElementById('payment_modal').close();
                                 setSelectedApplicationForPayment(null);
                                 if(success) {
-                                    fetchAppliedTutors(); // Refresh the list if payment was successful
+                                    fetchAppliedTutors();
                                 }
                             }}
                         />
                     ) : (
                         <LoadingPage /> 
                     )}
-                    
-                    {/* Close button for outside click */}
                     <form method="dialog" className="modal-backdrop">
                         <button onClick={() => setSelectedApplicationForPayment(null)}>close</button>
                     </form>
                 </div>
             </dialog>
-
-            {/* --- Contact Info Modal --- */}
             <dialog id="contact_modal" className="modal">
                 <div className="modal-box w-11/12 max-w-sm">
                     <h3 className="font-bold text-lg text-success mb-4">🎉 Hired Tutor Contact Info</h3>
