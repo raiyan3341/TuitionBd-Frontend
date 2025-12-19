@@ -1,4 +1,3 @@
-// src/pages/Register/Register.jsx
 import React from 'react';
 import useAuth from '../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
@@ -73,8 +72,6 @@ const Register = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-[#00d2ff] via-[#3a7bd5] to-[#923cb5] p-4 relative overflow-hidden">
-            
-            {/* Animated background blobs */}
             <div className="absolute top-[-5%] right-[-5%] w-80 h-80 bg-white opacity-10 rounded-full blur-3xl animate-pulse"></div>
             <div className="absolute bottom-[-5%] left-[-5%] w-80 h-80 bg-purple-400 opacity-20 rounded-full blur-3xl"></div>
 
@@ -82,16 +79,13 @@ const Register = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="container max-w-5xl mx-auto flex flex-col lg:flex-row bg-white/10 backdrop-blur-2xl rounded-[40px] shadow-2xl border border-white/20 overflow-hidden"
-            >
-                
-                {/* Left Section: Branding & Welcome */}
+                className="container max-w-5xl mx-auto flex flex-col lg:flex-row bg-white/10 backdrop-blur-2xl rounded-[40px] shadow-2xl border border-white/20 overflow-hidden"     >
+
                 <div className="w-full lg:w-2/5 p-10 text-white flex flex-col justify-center bg-black/10">
                     <motion.div
                         initial={{ x: -30 }}
                         animate={{ x: 0 }}
-                        transition={{ delay: 0.3 }}
-                    >
+                        transition={{ delay: 0.3 }} >
                         <h1 className="text-5xl font-black mb-6">Join Our <br/><span className="text-yellow-300">Community</span></h1>
                         <p className="text-white/80 mb-8 text-lg">
                             Create an account to unlock personalized features. Find the best tutors or get the best tuition posts in minutes.
@@ -106,8 +100,6 @@ const Register = () => {
                         </ul>
                     </motion.div>
                 </div>
-
-                {/* Right Section: Registration Form */}
                 <div className="w-full lg:w-3/5 bg-white p-8 md:p-12">
                     <div className="mb-8">
                         <h2 className="text-3xl font-bold text-gray-800">Create Account</h2>
@@ -115,7 +107,6 @@ const Register = () => {
                     </div>
 
                     <form onSubmit={handleRegister} className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        {/* Name */}
                         <div className="form-control">
                             <label className="label font-bold text-xs uppercase text-gray-400">Full Name</label>
                             <div className="relative">
@@ -123,8 +114,6 @@ const Register = () => {
                                 <input type="text" name="name" placeholder="John Doe" className="input input-bordered w-full pl-12 rounded-2xl bg-gray-50 border-gray-200 focus:border-primary" required />
                             </div>
                         </div>
-
-                        {/* Email */}
                         <div className="form-control">
                             <label className="label font-bold text-xs uppercase text-gray-400">Email Address</label>
                             <div className="relative">
@@ -132,8 +121,6 @@ const Register = () => {
                                 <input type="email" name="email" placeholder="example@mail.com" className="input input-bordered w-full pl-12 rounded-2xl bg-gray-50 border-gray-200 focus:border-primary" required />
                             </div>
                         </div>
-
-                        {/* Phone */}
                         <div className="form-control">
                             <label className="label font-bold text-xs uppercase text-gray-400">Phone Number</label>
                             <div className="relative">
@@ -141,8 +128,6 @@ const Register = () => {
                                 <input type="tel" name="phone" placeholder="017XXXXXXXX" className="input input-bordered w-full pl-12 rounded-2xl bg-gray-50 border-gray-200 focus:border-primary" required />
                             </div>
                         </div>
-
-                        {/* Role Selection */}
                         <div className="form-control">
                             <label className="label font-bold text-xs uppercase text-gray-400">I am a</label>
                             <div className="relative">
@@ -154,7 +139,6 @@ const Register = () => {
                             </div>
                         </div>
 
-                        {/* Password */}
                         <div className="form-control md:col-span-2">
                             <label className="label font-bold text-xs uppercase text-gray-400">Secure Password</label>
                             <div className="relative">
