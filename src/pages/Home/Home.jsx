@@ -1,4 +1,3 @@
-// src/pages/Home/Home.jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -26,10 +25,7 @@ const Home = () => {
 
     return (
         <div className="bg-[#f3f4f6] min-h-screen font-sans overflow-x-hidden">
-            
-            {/* 1. HERO SECTION - Vibrant Gradient Design */}
             <section className="relative bg-gradient-to-br from-[#00d2ff] via-[#3a7bd5] to-[#923cb5] py-20 px-6 rounded-b-[50px] shadow-2xl overflow-hidden">
-                {/* Decorative Circles */}
                 <div className="absolute top-[-10%] left-[-5%] w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"></div>
                 <div className="absolute bottom-[-10%] right-[-5%] w-80 h-80 bg-purple-400 opacity-20 rounded-full blur-3xl"></div>
 
@@ -38,8 +34,7 @@ const Home = () => {
                         initial={{ opacity: 0, y: -30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="text-4xl md:text-7xl font-black text-white leading-tight"
-                    >
+                        className="text-4xl md:text-7xl font-black text-white leading-tight" >
                         Find Your Perfect <br />
                         <span className="text-yellow-300">Tutor</span> or <span className="text-orange-400">Tuition</span> Today!
                     </motion.h1>
@@ -48,16 +43,13 @@ const Home = () => {
                     </p>
                     <motion.div 
                         whileHover={{ scale: 1.05 }}
-                        className="mt-10"
-                    >
+                        className="mt-10" >
                         <Link to="/register" className="bg-white text-blue-600 px-10 py-4 rounded-full font-bold text-lg shadow-2xl hover:bg-blue-50 transition-all flex items-center gap-2">
                             Get Started Now <FaRocket />
                         </Link>
                     </motion.div>
                 </div>
             </section>
-
-            {/* 2. HOW IT WORKS - Glassmorphism Style */}
             <section className="container mx-auto py-20 px-6">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl font-extrabold text-gray-800">2. How It <span className="text-blue-600">Works</span></h2>
@@ -84,7 +76,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* 3. LATEST TUITIONS - Card Section */}
             <section className="bg-white py-20 rounded-[50px] shadow-sm">
                 <div className="container mx-auto px-6">
                     <div className="flex flex-col md:flex-row justify-between items-center mb-12">
@@ -112,8 +103,6 @@ const Home = () => {
                     )}
                 </div>
             </section>
-
-            {/* 4. WHY CHOOSE US - Colorful Stats */}
             <section className="container mx-auto py-24 px-6">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl font-extrabold text-gray-800">3. Why Choose <span className="text-blue-600">Us</span></h2>
@@ -130,8 +119,7 @@ const Home = () => {
                             key={idx}
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
-                            className="bg-white p-8 rounded-[40px] shadow-lg border-b-8 border-transparent hover:border-blue-500 transition-all text-center"
-                        >
+                            className="bg-white p-8 rounded-[40px] shadow-lg border-b-8 border-transparent hover:border-blue-500 transition-all text-center">
                             <div className={`w-14 h-14 mx-auto ${stat.bg} ${stat.color} rounded-full flex items-center justify-center text-2xl mb-4`}>
                                 {stat.icon}
                             </div>
@@ -141,7 +129,6 @@ const Home = () => {
                     ))}
                 </div>
             </section>
-
         </div>
     );
 };

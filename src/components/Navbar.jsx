@@ -10,7 +10,6 @@ const Navbar = () => {
   const [dbUser, setDbUser] = useState(null);
   const BASE_URL = "http://localhost:3000";
 
-  // Fetch user role
   useEffect(() => {
         if (user?.email) {
             axios.get(`${BASE_URL}/users/${user.email}`)
@@ -21,44 +20,30 @@ const Navbar = () => {
                 .catch(err => console.error("Navbar DB error:", err));
         }
     }, [user]);
-
-  // Dashboard path by role
   const getDashboardPath = () => {
-    if (!role) return "/dashboard"; // Role load না হওয়া পর্যন্ত
-    
-    // Routes.jsx এর path প্রপার্টির সাথে হুবহু মিল রেখে:
+    if (!role) return "/dashboard"; 
+  
     if (role === "Admin") return "/dashboard/admin-home"; 
     if (role === "Tutor") return "/dashboard/tutor-home"; 
-    return "/dashboard/student-home"; // Student এর জন্য
+    return "/dashboard/student-home";
 };
 
-  // Nav links (ONLY flex added)
   const navLinks = (
     <>
       <li>
-        <NavLink to="/" className="flex items-center">
-          Home
-        </NavLink>
+        <NavLink to="/" className="flex items-center"> Home</NavLink>
       </li>
       <li>
-        <NavLink to="/tuitions" className="flex items-center">
-          Tuitions
-        </NavLink>
+        <NavLink to="/tuitions" className="flex items-center">Tuitions</NavLink>
       </li>
       <li>
-        <NavLink to="/tutors" className="flex items-center">
-          Tutors
-        </NavLink>
+        <NavLink to="/tutors" className="flex items-center">Tutors</NavLink>
       </li>
       <li>
-        <NavLink to="/about" className="flex items-center">
-          About
-        </NavLink>
+        <NavLink to="/about" className="flex items-center"> About</NavLink>
       </li>
       <li>
-        <NavLink to="/contact" className="flex items-center">
-          Contact
-        </NavLink>
+   <NavLink to="/contact" className="flex items-center">Contact  </NavLink>
       </li>
     </>
   );
@@ -76,47 +61,33 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100 shadow-md sticky top-0 z-10 flex items-center">
       <div className="container mx-auto flex items-center">
-
-        {/* LEFT */}
         <div className="navbar-start flex items-center">
-          {/* Mobile Menu */}
           <div className="dropdown">
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-ghost lg:hidden flex items-center"
-            >
+              className="btn btn-ghost lg:hidden flex items-center">
               ☰
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              {navLinks}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
             </ul>
           </div>
-
-          {/* Logo */}
           <Link
             to="/"
-            className="btn btn-ghost text-xl font-bold text-primary flex items-center"
-          >
-            E-TuitionBD
-          </Link>
+            className="btn btn-ghost text-xl font-bold text-primary flex items-center">E-TuitionBD</Link>
         </div>
 
-        {/* CENTER */}
         <div className="navbar-center hidden lg:flex items-center">
           <ul className="menu menu-horizontal px-1 flex items-center">
             {navLinks}
           </ul>
         </div>
 
-        {/* RIGHT */}
         <div className="navbar-end flex items-center gap-2">
   {user ? (
     <div className="dropdown dropdown-end">
-      {/* প্রোফাইল বাটন */}
       <div
         tabIndex={0}
         role="button"
@@ -126,19 +97,16 @@ const Navbar = () => {
           <img
             alt="User Profile"
             src={
-              // 💡 আমরা আগে যেভাবে ডাটাবেসের ছবি (dbUser?.photo) সেট করেছিলাম সেটি এখানেও ব্যবহার করুন
               dbUser?.photo || user?.photoURL || "https://ui-avatars.com/api/?name=User"
             }
           />
         </div>
       </div>
 
-      {/* ড্রপডাউন মেনু */}
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content mt-4 z-[10] p-3 shadow-2xl bg-base-100 rounded-xl w-64 border border-base-200"
-      >
-        {/* ইউজার ইনফো সেকশন */}
+        className="menu menu-sm dropdown-content mt-4 z-[10] p-3 shadow-2xl bg-base-100 rounded-xl w-64 border border-base-200">
+
         <div className="px-4 py-3 mb-2 border-b border-base-200">
           <p className="text-sm font-bold text-gray-800 truncate">
             {dbUser?.name || user?.displayName || "User Name"}
@@ -150,8 +118,6 @@ const Navbar = () => {
              </span>
           </div>
         </div>
-
-        {/* লিঙ্কগুলো */}
         <li>
           <Link
             to={getDashboardPath()}
