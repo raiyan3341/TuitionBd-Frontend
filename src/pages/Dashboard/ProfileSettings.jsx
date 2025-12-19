@@ -1,4 +1,3 @@
-// src/pages/Dashboard/Admin/ProfileSettings.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -88,9 +87,7 @@ const ProfileSettings = () => {
         <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="max-w-4xl mx-auto space-y-8 pb-10"
-        >
-            {/* Header Section */}
+            className="max-w-4xl mx-auto space-y-8 pb-10" >
             <div className="bg-white p-8 rounded-[40px] shadow-sm border border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div>
                     <h1 className="text-3xl font-black text-slate-800 tracking-tight">Account <span className="text-blue-600">Settings</span></h1>
@@ -103,7 +100,6 @@ const ProfileSettings = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Left: Avatar Card */}
                 <div className="bg-white p-8 rounded-[45px] shadow-sm border border-slate-100 flex flex-col items-center">
                     <div className="relative group">
                         <div className="w-40 h-40 rounded-[50px] overflow-hidden ring-4 ring-blue-50 ring-offset-4 bg-slate-100 transition-all group-hover:ring-blue-200">
@@ -126,12 +122,9 @@ const ProfileSettings = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* Right: Form Settings */}
                 <div className="lg:col-span-2 bg-white p-10 rounded-[45px] shadow-sm border border-slate-100">
                     <form onSubmit={handleUpdateProfile} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {/* Full Name */}
                             <div className="space-y-2">
                                 <label className="flex items-center gap-2 text-xs font-black text-slate-500 uppercase tracking-widest ml-1">
                                     <FaUser className="text-blue-500" /> Full Name
@@ -144,8 +137,6 @@ const ProfileSettings = () => {
                                     required 
                                 />
                             </div>
-
-                            {/* Phone */}
                             <div className="space-y-2">
                                 <label className="flex items-center gap-2 text-xs font-black text-slate-500 uppercase tracking-widest ml-1">
                                     <FaPhoneAlt className="text-blue-500" /> Phone Number
@@ -159,8 +150,6 @@ const ProfileSettings = () => {
                                 />
                             </div>
                         </div>
-
-                        {/* Address */}
                         <div className="space-y-2">
                             <label className="flex items-center gap-2 text-xs font-black text-slate-500 uppercase tracking-widest ml-1">
                                 <FaMapMarkerAlt className="text-blue-500" /> Current Address
@@ -173,8 +162,6 @@ const ProfileSettings = () => {
                                 className="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none transition-all resize-none"
                             ></textarea>
                         </div>
-
-                        {/* Save Button */}
                         <div className="pt-6">
                             <button 
                                 type="submit" 
@@ -183,8 +170,7 @@ const ProfileSettings = () => {
                                     ${uploading 
                                         ? 'bg-slate-100 text-slate-400 cursor-not-allowed' 
                                         : 'bg-slate-900 hover:bg-blue-600 text-white shadow-blue-900/10 hover:shadow-blue-500/20 active:scale-95'
-                                    }`}
-                            >
+                                    }`}>
                                 {uploading ? (
                                     <>
                                         <span className="loading loading-spinner loading-xs"></span>
