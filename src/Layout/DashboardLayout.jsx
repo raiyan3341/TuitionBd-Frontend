@@ -1,4 +1,3 @@
-// src/layouts/DashboardLayout.jsx
 import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, Link, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -39,7 +38,6 @@ const DashboardLayout = () => {
 
   if (loading || userLoading) return <LoadingPage />;
 
-  // Dynamic Navigation Generator
   const getNavLinks = () => {
     if (role === "Student") return [
       { to: "student-home", label: "Dashboard", icon: <FaHome /> },
@@ -64,19 +62,14 @@ const DashboardLayout = () => {
   return (
     <div className="drawer lg:drawer-open bg-[#F8FAFC]">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-
-      {/* --- Main Content --- */}
       <div className="drawer-content flex flex-col min-h-screen">
-        
-        {/* Top Navbar for Dashboard */}
+      
         <div className="sticky top-0 z-10 w-full flex items-center justify-between bg-white/80 backdrop-blur-md px-6 py-4 border-b border-slate-100 lg:hidden">
           <Link to="/" className="text-2xl font-black text-blue-600 tracking-tighter">TMS</Link>
           <label htmlFor="my-drawer-2" className="btn btn-ghost btn-circle drawer-button">
             <FaBars size={20} />
           </label>
         </div>
-
-        {/* Dynamic Page Header (Desktop) */}
         <div className="hidden lg:flex items-center justify-between px-10 py-6 bg-white border-b border-slate-100">
           <div>
             <h1 className="text-xl font-black text-slate-800 tracking-tight">
@@ -93,8 +86,6 @@ const DashboardLayout = () => {
             </div>
           </div>
         </div>
-
-        {/* Main Viewport */}
         <main className="p-6 md:p-10 flex-grow">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -105,22 +96,17 @@ const DashboardLayout = () => {
           </motion.div>
         </main>
       </div>
-
-      {/* --- Sidebar --- */}
       <div className="drawer-side z-30">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         
         <div className="w-80 min-h-full bg-slate-900 text-slate-300 flex flex-col">
-          
-          {/* Sidebar Logo */}
+        
           <div className="p-8 pb-4">
             <Link to="/" className="text-3xl font-black text-white tracking-tighter flex items-center gap-2">
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-sm italic">T</div>
               TMS<span className="text-blue-500">.</span>
             </Link>
           </div>
-
-          {/* Profile Card inside Sidebar */}
           <div className="px-6 py-8">
             <div className="bg-white/5 rounded-[30px] p-6 border border-white/5 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-20 h-20 bg-blue-600/10 rounded-full blur-2xl group-hover:bg-blue-600/20 transition-all"></div>
@@ -139,8 +125,6 @@ const DashboardLayout = () => {
               </div>
             </div>
           </div>
-
-          {/* Nav Links */}
           <nav className="flex-grow px-4 space-y-2">
             <p className="px-6 text-[10px] font-black text-slate-500 uppercase tracking-[3px] mb-4">Main Menu</p>
             {getNavLinks().map((link) => (
@@ -170,13 +154,10 @@ const DashboardLayout = () => {
               </Link>
             </div>
           </nav>
-
-          {/* Logout at Bottom */}
           <div className="p-6 mt-auto">
             <button 
               onClick={logOut}
-              className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl bg-rose-500/10 hover:bg-rose-500 text-rose-500 hover:text-white transition-all duration-300 font-black text-sm uppercase tracking-widest"
-            >
+              className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl bg-rose-500/10 hover:bg-rose-500 text-rose-500 hover:text-white transition-all duration-300 font-black text-sm uppercase tracking-widest">
               <FaSignOutAlt /> Logout
             </button>
           </div>
