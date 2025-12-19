@@ -10,9 +10,8 @@ const RevenueHistory = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // ইউজার ডাটা না আসা পর্যন্ত অপেক্ষা করবে
         if (user?.email) {
-            setLoading(true); // লোডিং শুরু
+            setLoading(true);
             axios.get(`http://localhost:3000/revenue-history?email=${user.email}`)
                 .then(res => {
                     setHistory(res.data);
@@ -21,16 +20,12 @@ const RevenueHistory = () => {
                     console.error("Fetch Error:", err);
                 })
                 .finally(() => {
-                    // ডাটা আসুক বা এরর হোক, লোডিং বন্ধ হবেই
                     setLoading(false); 
                 });
         } else if (!user) {
-            // যদি ইউজার লগইন না থাকে
             setLoading(false);
         }
     }, [user]);
-
-    // লোডিং চেক
     if (loading) return <LoadingPage />;
 
     return (
