@@ -1,11 +1,9 @@
-// src/pages/Contact/Contact.jsx
 import React from 'react';
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaComments, FaPaperPlane, FaClock } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-import { motion } from 'framer-motion'; // এনিমেশনের জন্য
+import { motion } from 'framer-motion';
 
 const ContactUs = () => {
-
     const handleSubmit = (e) => {
         e.preventDefault();
         Swal.fire({
@@ -22,7 +20,6 @@ const ContactUs = () => {
 
     return (
         <div className="bg-[#f8fafc] min-h-screen">
-            {/* 1. Header Section with Gradient Background */}
             <section className="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-800 py-20 px-6 rounded-b-[60px] shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
                     <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full fill-white">
@@ -35,8 +32,7 @@ const ContactUs = () => {
                 <motion.div 
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="container mx-auto text-center relative z-10"
-                >
+                    className="container mx-auto text-center relative z-10" >
                     <h1 className="text-5xl md:text-7xl font-black text-white mb-6">Get In <span className="text-yellow-400">Touch</span></h1>
                     <p className="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
                         Have questions about hiring a tutor or posting a tuition? 
@@ -47,14 +43,11 @@ const ContactUs = () => {
 
             <div className="container mx-auto p-6 lg:p-12 -mt-20 relative">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    
-                    {/* 2. Contact Form Section - Premium Glassmorphism */}
                     <motion.div 
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="bg-white p-8 md:p-12 rounded-[40px] shadow-2xl border border-white"
-                    >
+                        className="bg-white p-8 md:p-12 rounded-[40px] shadow-2xl border border-white">
                         <div className="mb-10">
                             <h2 className="text-3xl font-bold text-gray-800 flex items-center gap-3">
                                 <span className="p-3 bg-blue-100 text-blue-600 rounded-2xl"><FaComments /></span> 
@@ -89,8 +82,6 @@ const ContactUs = () => {
                             </button>
                         </form>
                     </motion.div>
-
-                    {/* 3. Contact Info Section - Colorful Cards */}
                     <motion.div 
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -98,8 +89,6 @@ const ContactUs = () => {
                         className="space-y-6"
                     >
                         <h2 className="text-3xl font-bold text-gray-800 mb-8">Quick Information</h2>
-                        
-                        {/* Info Cards */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="p-6 bg-white rounded-3xl shadow-lg border-b-4 border-blue-500 group hover:bg-blue-500 transition-all duration-300">
                                 <FaPhoneAlt className="text-3xl text-blue-500 mb-4 group-hover:text-white" />
@@ -125,8 +114,6 @@ const ContactUs = () => {
                                 <p className="text-gray-500 group-hover:text-orange-50">Sat - Thu: 10AM - 8PM</p>
                             </div>
                         </div>
-
-                        {/* Map Placeholder with Decorative Styling */}
                         <div className="relative rounded-[40px] overflow-hidden shadow-2xl h-64 border-8 border-white">
                             <iframe 
                                 title="Map"

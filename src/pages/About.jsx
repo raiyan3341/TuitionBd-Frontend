@@ -1,10 +1,8 @@
-// src/pages/About/About.jsx
 import React from 'react';
 import { FaGraduationCap, FaUserGraduate, FaChalkboardTeacher, FaCheckCircle, FaUsers, FaLightbulb, FaShieldAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 const AboutUs = () => {
-    // Key features highlight
     const features = [
         { 
             icon: <FaGraduationCap />, 
@@ -34,8 +32,6 @@ const AboutUs = () => {
 
     return (
         <div className="bg-[#fdfdfd] min-h-screen overflow-hidden">
-            
-            {/* 1. Hero Section - Modern Typography */}
             <section className="relative py-20 px-6 bg-gradient-to-b from-slate-50 to-white overflow-hidden">
                 <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-100 rounded-full blur-[100px] opacity-50"></div>
                 <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-purple-100 rounded-full blur-[100px] opacity-50"></div>
@@ -65,8 +61,6 @@ const AboutUs = () => {
                     </motion.p>
                 </div>
             </section>
-
-            {/* 2. Mission & Vision Section - Interactive Layout */}
             <section className="container mx-auto px-6 py-16">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <motion.div 
@@ -130,8 +124,6 @@ const AboutUs = () => {
                     </motion.div>
                 </div>
             </section>
-
-            {/* 3. Features Grid - Premium Cards */}
             <section className="bg-slate-50 py-24">
                 <div className="container mx-auto px-6 text-center">
                     <h2 className="text-4xl font-black text-slate-800 mb-16 underline decoration-blue-500/30 underline-offset-8">Core Values</h2>
@@ -152,8 +144,6 @@ const AboutUs = () => {
                     </div>
                 </div>
             </section>
-
-            {/* 4. Call to Action */}
             <section className="py-20 px-6">
                 <div className="container mx-auto bg-gradient-to-r from-blue-600 to-indigo-700 rounded-[50px] p-12 text-center text-white relative overflow-hidden shadow-2xl shadow-blue-200">
                     <div className="absolute top-0 right-0 opacity-10 transform translate-x-1/2 -translate-y-1/2">
