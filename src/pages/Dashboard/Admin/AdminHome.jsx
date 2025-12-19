@@ -124,3 +124,6 @@ const AdminHome = () => {
 };
 
 export default AdminHome;
+
+//admin@tms.com
+//Admin@123

@@ -1,33 +1,21 @@
 import { createBrowserRouter } from "react-router-dom";
-
-// Pages
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Root from "../pages/Root/Root"; 
-
-// Public Components
 import TuitionListing from "../pages/TuitionListing"; 
 import Tutors from "../pages/Tutors"; 
-
-// Layouts & Protection
-
 import PrivateRoute from "../components/PrivateRoute";
 import RoleBasedHome from "../pages/Dashboard/RoleBasedHome"; 
-
-// Dashboard Components
-// Admin
 import AdminHome from "../pages/Dashboard/Admin/AdminHome";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import ManageTuitions from "../pages/Dashboard/Admin/ManageTuitions";
-import RevenueHistory from "../pages/RevenueHistory"; // 💡 NEW: রেভিনিউ হিস্টরি কম্পোনেন্ট
-// Student
+import RevenueHistory from "../pages/RevenueHistory";
 import StudentHome from "../pages/Dashboard/Student/StudentHome";
 import PostTuition from "../pages/Dashboard/Student/PostTuition";
 import MyTuitionPosts from "../pages/Dashboard/Student/MyTuitionPosts";
 import AppliedTutors from "../pages/AppliedTutors"; 
-// Tutor
 import TutorHome from "../pages/TutorHome";
 import MyApplications from "../pages/MyApplications"; 
 import MyHiredTuitions from "../pages/MyHiredTuitions"; 
@@ -39,7 +27,6 @@ import PostNewTuition from "../pages/Dashboard/Student/PostTuition";
 
 
 export const router = createBrowserRouter([
-  // 1. Main Public Layout
   {
     path: "/",
     element: <Root />,
@@ -50,11 +37,11 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/about", // 👈 New Route
+        path: "/about",
         element: <AboutUs />,
       },
       {
-        path: "/contact", // 👈 New Route
+        path: "/contact",
         element: <ContactUs />,
       },
       {
@@ -76,14 +63,12 @@ export const router = createBrowserRouter([
     ]
   },
   
-  // 2. Dashboard Layout (Protected)
+
   {
     path: "dashboard",
     element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
     errorElement: <ErrorPage />,
     children: [
-      
-      // 🎯 ড্যাশবোর্ডের প্রধান পেজ (/dashboard)
       {
             path: "profile-settings", 
             element: <ProfileSettings />
@@ -93,8 +78,6 @@ export const router = createBrowserRouter([
         element: <RoleBasedHome /> 
       },
       
-
-      // --- Admin Routes ---
       {
         path: 'manage-users',
         element: <ManageUsers /> 
@@ -104,18 +87,16 @@ export const router = createBrowserRouter([
         element: <ManageTuitions />
       },
       {
-        path: 'revenue-history', // 💡 NEW: Admin Revenue History Route
+        path: 'revenue-history',
         element: <RevenueHistory />
       },
-
-      // --- Student Routes ---
       {
         path: 'post-tuition',
         element: <PostTuition />
       },
       {
-      path: 'post-new-tuition', // 💡 খেয়াল করুন এখানে শুরুতে / দেওয়ার দরকার নেই
-      element: <PostNewTuition /> // আপনার তৈরি করা কম্পোনেন্ট
+      path: 'post-new-tuition', 
+      element: <PostNewTuition />
     },
       {
         path: 'my-tuition-posts',
@@ -126,11 +107,10 @@ export const router = createBrowserRouter([
         element: <AppliedTutors />
       },
       {
-      path: 'student-home', // এটি অ্যাক্সেস করতে হবে /dashboard/student-home লিখে
+      path: 'student-home',
       element: <StudentHome />
     },
       
-      // --- Tutor Routes ---
       {
         path: 'my-applications',
         element: <MyApplications /> 
@@ -140,7 +120,6 @@ export const router = createBrowserRouter([
         element: <MyHiredTuitions /> 
       },
       
-      // Role-specific home routes
       {
         path: 'admin-home',
         element: <AdminHome /> 

@@ -1,10 +1,8 @@
-// src/pages/Dashboard/Tutor/MyHiredTuitions.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2'; 
 
 import { FaGraduationCap, FaMapMarkerAlt, FaDollarSign, FaPhone, FaEnvelope, FaUserCircle, FaCheckCircle, FaExternalLinkAlt } from 'react-icons/fa';
-
 import { motion, AnimatePresence } from 'framer-motion';
 import LoadingPage from '../components/LoadingPage';
 import useAuth from '../hooks/useAuth';
@@ -17,7 +15,6 @@ const MyHiredTuitions = () => {
     const [modalLoading, setModalLoading] = useState(false);
     const BASE_URL = 'http://localhost:3000';
 
-    // ১. হায়ার করা টিউশনগুলো ফেচ করা
     const fetchHiredApplications = async () => {
         if (!user?.email) return;
         setLoading(true);
@@ -27,7 +24,6 @@ const MyHiredTuitions = () => {
             const res = await axios.get(`${BASE_URL}/applications/my-applications?email=${user?.email}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-            // পেইড এবং কনফার্ম হওয়া টিউশন ফিল্টার
             const hired = res.data.filter(app => app.status === 'Paid-Confirmed');
             setHiredApplications(hired);
         } catch (error) {
@@ -42,12 +38,10 @@ const MyHiredTuitions = () => {
         fetchHiredApplications();
     }, [user]);
 
-    // ২. স্টুডেন্টের কন্টাক্ট ডিটেইলস ফেচ করা
     const fetchContactInfo = async (tuitionId) => {
         setModalLoading(true);
         const token = localStorage.getItem('tuition-access-token');
         try {
-            // API কল - নিশ্চিত করুন এই রাউটটি আপনার ব্যাকএন্ডে ঠিক আছে
             const res = await axios.get(`${BASE_URL}/contact-details/${tuitionId}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -66,9 +60,7 @@ const MyHiredTuitions = () => {
         <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-8 pb-10"
-        >
-            {/* Header Section */}
+            className="space-y-8 pb-10" >
             <div className="bg-white p-8 rounded-[40px] shadow-sm border border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div>
                     <h1 className="text-3xl font-black text-slate-800 tracking-tight italic">
@@ -83,8 +75,6 @@ const MyHiredTuitions = () => {
                     <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest italic">Confirmed Tuitions Only</span>
                 </div>
             </div>
-
-            {/* Empty State */}
             {hiredApplications.length === 0 ? (
                 <div className="bg-white rounded-[45px] p-20 text-center border-2 border-dashed border-slate-200">
                     <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -99,8 +89,7 @@ const MyHiredTuitions = () => {
                         <motion.div 
                             whileHover={{ y: -5 }}
                             key={app._id} 
-                            className="bg-white rounded-[40px] shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl hover:shadow-emerald-100 transition-all duration-300"
-                        >
+                            className="bg-white rounded-[40px] shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl hover:shadow-emerald-100 transition-all duration-300">
                             <div className="p-8">
                                 <div className="flex justify-between items-start mb-6">
                                     <div className="bg-emerald-50 p-4 rounded-3xl text-emerald-600 text-2xl">
@@ -142,7 +131,6 @@ const MyHiredTuitions = () => {
                 </div>
             )}
 
-            {/* --- Student Contact Modal --- */}
             <dialog id="tutor_contact_modal" className="modal">
                 <div className="modal-box p-0 rounded-[40px] bg-white overflow-hidden max-w-md border-none shadow-2xl">
                     <div className="bg-emerald-600 p-8 text-white relative">

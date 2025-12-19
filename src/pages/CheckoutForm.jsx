@@ -1,12 +1,9 @@
-// src/pages/Payment/CheckoutForm.jsx
 import React, { useEffect, useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 
 import Swal from 'sweetalert2';
 import useAuth from '../hooks/useAuth';
-
-// NOTE: This component is a Child component of the PaymentPage.jsx
 
 const CheckoutForm = ({ tuition, feeAmount, closePaymentModal }) => {
     const stripe = useStripe();
@@ -17,7 +14,6 @@ const CheckoutForm = ({ tuition, feeAmount, closePaymentModal }) => {
     const [processing, setProcessing] = useState(false);
     const BASE_URL = 'http://localhost:3000';
 
-    // 1. Fetch Client Secret from Backend
     useEffect(() => {
         if (feeAmount > 0) {
             axios.post(`${BASE_URL}/create-payment-intent`, { price: feeAmount })
@@ -31,7 +27,6 @@ const CheckoutForm = ({ tuition, feeAmount, closePaymentModal }) => {
         }
     }, [feeAmount]);
 
-    // 2. Handle Form Submission
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -46,8 +41,6 @@ const CheckoutForm = ({ tuition, feeAmount, closePaymentModal }) => {
 
         setProcessing(true);
         setCardError('');
-
-        // 3. Create Payment Method
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card,
@@ -58,8 +51,6 @@ const CheckoutForm = ({ tuition, feeAmount, closePaymentModal }) => {
             setProcessing(false);
             return;
         }
-
-        // 4. Confirm Card Payment
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
             clientSecret,
             {
@@ -79,13 +70,11 @@ const CheckoutForm = ({ tuition, feeAmount, closePaymentModal }) => {
             return;
         }
 
-        // 5. Successful Payment - Update Backend
         if (paymentIntent.status === 'succeeded') {
             const paymentInfo = {
                 transactionId: paymentIntent.id,
                 amount: feeAmount,
-                currency: 'bdt', // Should match the currency used in payment intent creation
-                // We use the application ID to link the payment back to the hiring process
+                currency: 'bdt',
                 applicationId: tuition.applicationId, 
             };
             
@@ -103,7 +92,7 @@ const CheckoutForm = ({ tuition, feeAmount, closePaymentModal }) => {
                         icon: 'success',
                         confirmButtonText: 'Done'
                     });
-                    closePaymentModal(true); // Close modal and trigger a refresh/update
+                    closePaymentModal(true);
                 }
             } catch (error) {
                  Swal.fire('Update Failed', 'Payment succeeded, but failed to update tuition status.', 'error');

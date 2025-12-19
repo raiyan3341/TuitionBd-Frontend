@@ -1,4 +1,3 @@
-// src/components/Shared/Footer.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
@@ -9,13 +8,10 @@ import {
 const Footer = () => {
     return (
         <footer className="relative bg-[#0f172a] text-slate-300 pt-20 pb-10 overflow-hidden">
-            {/* Background Decorative Element */}
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-emerald-400"></div>
             
             <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-                    
-                    {/* 1. Brand & Description */}
                     <div className="space-y-6">
                         <Link to="/" className="flex items-center gap-2">
                             <span className="text-4xl font-black text-white tracking-tighter">
@@ -42,8 +38,6 @@ const Footer = () => {
                             ))}
                         </div>
                     </div>
-
-                    {/* 2. Useful Links */}
                     <div>
                         <h4 className="text-white font-bold text-lg mb-8 relative inline-block">
                             Quick Links
@@ -57,8 +51,6 @@ const Footer = () => {
                             <li><Link to="/contact" className="hover:text-blue-400 transition-colors flex items-center gap-2">Help Center</Link></li>
                         </ul>
                     </div>
-
-                    {/* 3. Contact Info */}
                     <div>
                         <h4 className="text-white font-bold text-lg mb-8 relative inline-block">
                             Get In Touch
@@ -85,8 +77,6 @@ const Footer = () => {
                             </li>
                         </ul>
                     </div>
-
-                    {/* 4. Newsletter */}
                     <div>
                         <h4 className="text-white font-bold text-lg mb-8 relative inline-block">
                             Newsletter
@@ -106,8 +96,6 @@ const Footer = () => {
                     </div>
 
                 </div>
-
-                {/* Bottom Bar */}
                 <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
                     <p className="text-xs font-medium text-slate-500">
                         Copyright © {new Date().getFullYear()} - <span className="text-blue-500/80">Tuition Management System</span>. All rights reserved.
