@@ -1,4 +1,3 @@
-// src/pages/Dashboard/Tutor/MyApplications.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -61,9 +60,8 @@ const MyApplications = () => {
         <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-8 pb-10"
-        >
-            {/* 1. Page Header */}
+            className="space-y-8 pb-10">
+
             <div className="bg-white p-8 rounded-[40px] shadow-sm border border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div>
                     <h1 className="text-3xl font-black text-slate-800 tracking-tight italic">
@@ -78,8 +76,6 @@ const MyApplications = () => {
                     <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest italic">Track Status</span>
                 </div>
             </div>
-
-            {/* 2. Content Section */}
             {applications.length === 0 ? (
                 <div className="bg-white rounded-[45px] p-20 text-center border-2 border-dashed border-slate-200">
                     <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-300">
@@ -133,8 +129,6 @@ const MyApplications = () => {
                                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Applied For ID: {app._id.slice(-6)}</span>
                                     </div>
                                 </div>
-
-                                {/* Your Message Section */}
                                 <div className="relative p-6 bg-slate-900 rounded-[30px] text-slate-300">
                                     <div className="absolute -top-3 left-6 bg-blue-600 text-white px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-[2px] flex items-center gap-1">
                                         <FaCommentDots /> Your Message
