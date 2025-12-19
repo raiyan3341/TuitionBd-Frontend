@@ -1,4 +1,3 @@
-// src/pages/Tutors/Tutors.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -27,7 +26,6 @@ const Tutors = () => {
             });
     }, []);
 
-    // ফিল্টারিং লজিক (নাম বা সাবজেক্ট দিয়ে সার্চ)
     const filteredTutors = tutors.filter(tutor => 
         tutor.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         tutor.subjects?.some(s => s.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -37,10 +35,8 @@ const Tutors = () => {
 
     return (
         <div className="bg-[#fcfcfd] min-h-screen">
-            
-            {/* 1. Hero Section - Branding & Context */}
+        
             <section className="bg-gradient-to-br from-[#1e293b] via-[#334155] to-[#1e293b] pt-32 pb-24 px-6 relative overflow-hidden">
-                {/* Decorative background elements */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
 
@@ -48,8 +44,7 @@ const Tutors = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                    >
+                        transition={{ duration: 0.6 }}>
                         <h1 className="text-4xl md:text-6xl font-black text-white mb-6">
                             Find the Perfect <span className="text-blue-400">Expert Mentor</span>
                         </h1>
@@ -58,8 +53,6 @@ const Tutors = () => {
                             Browse profiles, check qualifications, and start learning.
                         </p>
                     </motion.div>
-
-                    {/* Quick Stats */}
                     <div className="flex flex-wrap justify-center gap-6 md:gap-12 mb-12">
                         <div className="flex items-center gap-3 text-white/80 bg-white/5 px-6 py-3 rounded-2xl border border-white/10 backdrop-blur-md">
                             <FaUserCheck className="text-blue-400 text-xl" />
@@ -70,8 +63,6 @@ const Tutors = () => {
                             <span className="font-bold">4.9/5 Average Rating</span>
                         </div>
                     </div>
-
-                    {/* Advanced Search Bar */}
                     <div className="max-w-3xl mx-auto relative group">
                         <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
                             <FaSearch className="text-slate-400 group-focus-within:text-blue-500 transition-colors" />
@@ -89,10 +80,8 @@ const Tutors = () => {
                 </div>
             </section>
 
-            {/* 2. Main Content Grid */}
             <div className="container mx-auto px-6 py-16">
                 
-                {/* Header for the List */}
                 <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4 border-b border-slate-200 pb-8">
                     <div>
                         <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-3">
@@ -111,7 +100,6 @@ const Tutors = () => {
                     </div>
                 </div>
 
-                {/* Tutor Grid */}
                 <AnimatePresence>
                     {filteredTutors.length === 0 ? (
                         <motion.div 
@@ -141,8 +129,6 @@ const Tutors = () => {
                         </div>
                     )}
                 </AnimatePresence>
-
-                {/* 3. Bottom CTA - Become a Tutor */}
                 <section className="mt-24 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-[50px] p-10 md:p-16 border border-blue-100 flex flex-col md:flex-row items-center justify-between gap-8">
                     <div className="text-center md:text-left">
                         <div className="p-3 bg-white w-fit rounded-2xl shadow-sm mb-4 mx-auto md:mx-0">

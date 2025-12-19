@@ -1,7 +1,5 @@
-// src/pages/Dashboard/Tutor/TutorHome.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// Path updated based on your structure
 import { FaEnvelopeOpenText, FaCheckCircle, FaSearch, FaClock, FaRocket, FaUserGraduate } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -70,9 +68,8 @@ const TutorHome = () => {
         <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-10"
-        >
-            {/* 1. Welcoming Hero Section */}
+            className="space-y-10">
+
             <div className="relative overflow-hidden bg-slate-900 rounded-[45px] p-8 md:p-12 text-white">
                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="text-center md:text-left">
@@ -92,11 +89,10 @@ const TutorHome = () => {
                         </div>
                     </div>
                 </div>
-                {/* Decorative Shapes */}
+  
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
             </div>
 
-            {/* 2. Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {cardData.map((card, index) => (
                     <motion.div 
@@ -116,8 +112,6 @@ const TutorHome = () => {
                     </motion.div>
                 ))}
             </div>
-
-            {/* 3. Quick Actions Section */}
             <div className="bg-white rounded-[45px] border border-slate-100 p-8 md:p-10 shadow-sm">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
                     <div>

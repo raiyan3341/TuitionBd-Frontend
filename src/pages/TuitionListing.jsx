@@ -1,4 +1,3 @@
-// src/pages/TuitionListing/TuitionListing.jsx
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -107,21 +106,16 @@ const TuitionListing = () => {
 
     return (
         <div className="bg-[#fcfcfd] min-h-screen">
-            
-            {/* 1. Enhanced Hero Section */}
             <section className="relative pt-32 pb-24 px-6 bg-gradient-to-br from-slate-900 via-[#1e293b] to-slate-900 overflow-hidden rounded-b-[60px] md:rounded-b-[100px] shadow-2xl">
-                {/* Visual Elements */}
                 <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px]"></div>
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[100px]"></div>
 
                 <div className="container mx-auto relative">
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-                        {/* Text Content */}
                         <motion.div 
                             initial={{ opacity: 0, x: -30 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="text-center lg:text-left max-w-2xl"
-                        >
+                            className="text-center lg:text-left max-w-2xl">
                             <span className="inline-block px-4 py-2 bg-blue-500/20 backdrop-blur-md border border-blue-400/30 text-blue-300 rounded-2xl text-xs font-black uppercase tracking-[3px] mb-6">
                                 Marketplace
                             </span>
@@ -131,8 +125,6 @@ const TuitionListing = () => {
                             <p className="text-xl text-slate-400 font-medium leading-relaxed mb-10">
                                 Connect with students who need your expertise. Explore thousands of active tuition posts and start your journey today.
                             </p>
-
-                            {/* Live Statistics */}
                             <div className="flex flex-wrap justify-center lg:justify-start gap-8 md:gap-12">
                                 <div className="flex items-center gap-4">
                                     <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-blue-400 border border-white/10 shadow-inner">
@@ -155,12 +147,10 @@ const TuitionListing = () => {
                             </div>
                         </motion.div>
 
-                        {/* Integrated Search & Filter Box */}
                         <motion.div 
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="w-full lg:max-w-md bg-white/5 backdrop-blur-2xl p-8 rounded-[40px] border border-white/10 shadow-3xl relative overflow-hidden group"
-                        >
+                            className="w-full lg:max-w-md bg-white/5 backdrop-blur-2xl p-8 rounded-[40px] border border-white/10 shadow-3xl relative overflow-hidden group" >
                             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:rotate-12 transition-transform">
                                 <FaSearch size={80} />
                             </div>
@@ -192,9 +182,7 @@ const TuitionListing = () => {
                 </div>
             </section>
 
-            {/* 2. Main Listings Section */}
             <div className="container mx-auto px-6 mt-10 relative  pb-20">
-                {/* Section Header */}
                 <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
                     <div className="text-center md:text-left">
                         <h2 className="text-3xl font-black text-slate-800">Latest <span className="text-blue-600">Postings</span></h2>
@@ -208,7 +196,6 @@ const TuitionListing = () => {
                     </div>
                 </div>
 
-                {/* Grid System */}
                 <AnimatePresence>
                     {tuitions.length === 0 ? (
                         <motion.div 
@@ -232,16 +219,13 @@ const TuitionListing = () => {
                 </AnimatePresence>
             </div>
 
-            {/* 3. Improved Application Modal */}
             <dialog id="apply_modal" className="modal modal-bottom sm:modal-middle backdrop-blur-xl">
                 <div className="modal-box bg-white p-0 rounded-[40px] overflow-hidden max-w-xl border-none shadow-3xl">
-                    {/* Header */}
                     <div className="bg-slate-900 p-10 text-white relative">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl"></div>
                         <button 
                             onClick={() => document.getElementById('apply_modal').close()}
-                            className="absolute top-6 right-6 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all z-10"
-                        >
+                            className="absolute top-6 right-6 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all z-10">
                             <FaTimes />
                         </button>
                         <div className="relative z-10">
@@ -252,8 +236,6 @@ const TuitionListing = () => {
                             <p className="text-slate-400 mt-2 font-medium">Position: <span className="text-white">{selectedTuition?.subject}</span></p>
                         </div>
                     </div>
-
-                    {/* Form */}
                     <form onSubmit={handleApplySubmit} className="p-10 space-y-8 bg-white">
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
@@ -299,7 +281,6 @@ const TuitionListing = () => {
     );
 };
 
-// Internal icon for button
 const FaArrowRight = () => (
     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg>
 );
