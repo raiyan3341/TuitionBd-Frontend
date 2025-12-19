@@ -1,4 +1,3 @@
-// src/pages/Dashboard/Admin/ManageTuitions.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -112,9 +111,8 @@ const ManageTuitions = () => {
         <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-8"
-        >
-            {/* Header Section */}
+            className="space-y-8">
+
             <div className="bg-white p-8 rounded-[35px] shadow-sm border border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
                 <div>
                     <h1 className="text-3xl font-black text-slate-800 tracking-tight">Tuition <span className="text-blue-600">Management</span></h1>
@@ -124,12 +122,9 @@ const ManageTuitions = () => {
                     <span className="text-xs font-black text-slate-500 uppercase tracking-widest">Admin Control Panel</span>
                 </div>
             </div>
-
-            {/* Table Section */}
             <div className="bg-white rounded-[40px] shadow-sm border border-slate-100 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="table w-full border-separate border-spacing-y-4 px-8">
-                        {/* head */}
                         <thead className="text-slate-400 font-black uppercase text-[10px] tracking-[2px]">
                             <tr className="border-none">
                                 <th className="bg-transparent pl-8">Subject & Class</th>
@@ -171,7 +166,7 @@ const ManageTuitions = () => {
                                     </td>
                                     <td className="rounded-r-[25px] border-none pr-8">
                                         <div className="flex justify-end gap-2">
-                                            {/* Approve */}
+                                        
                                             <button 
                                                 onClick={() => handleStatusUpdate(tuition._id, 'Approved')}
                                                 disabled={['Approved', 'Hired', 'Paid'].includes(tuition.status)}
@@ -180,7 +175,7 @@ const ManageTuitions = () => {
                                                 <FaCheckCircle size={18} />
                                             </button>
                                             
-                                            {/* Reject */}
+                                           
                                             <button 
                                                 onClick={() => handleStatusUpdate(tuition._id, 'Rejected')}
                                                 disabled={['Rejected', 'Hired', 'Paid'].includes(tuition.status)}
@@ -189,7 +184,7 @@ const ManageTuitions = () => {
                                                 <FaTimesCircle size={18} />
                                             </button>
 
-                                            {/* Delete */}
+                                            
                                             <button 
                                                 onClick={() => handleDelete(tuition._id)}
                                                 className="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-rose-500 hover:bg-rose-500 hover:text-white transition-all"

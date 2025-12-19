@@ -1,4 +1,3 @@
-// src/pages/Dashboard/Admin/AdminHome.jsx
 import React from 'react';
 import useAuth from '../../../hooks/useAuth';
 import { motion } from 'framer-motion';
@@ -10,8 +9,6 @@ import { Link } from 'react-router-dom';
 
 const AdminHome = () => {
     const { user } = useAuth();
-    
-    // Statistics logic (আগের মতোই রাখা হয়েছে)
     const stats = [
         { 
             title: 'Total Users', 
@@ -45,12 +42,10 @@ const AdminHome = () => {
 
     return (
         <div className="space-y-10">
-            {/* 1. Welcoming Banner with Glassmorphism */}
             <motion.div 
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden bg-white border border-slate-100 p-8 rounded-[40px] shadow-sm flex flex-col md:flex-row justify-between items-center gap-6"
-            >
+                className="relative overflow-hidden bg-white border border-slate-100 p-8 rounded-[40px] shadow-sm flex flex-col md:flex-row justify-between items-center gap-6">
                 <div className="relative z-10 text-center md:text-left">
                     <h1 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight">
                         Welcome back, <span className="text-blue-600">Admin {user?.displayName}!</span>
@@ -71,11 +66,8 @@ const AdminHome = () => {
                         </div>
                     </div>
                 </div>
-                {/* Decorative Background Circle */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full -mr-20 -mt-20 blur-3xl opacity-50"></div>
             </motion.div>
-
-            {/* 2. Stat Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {stats.map((stat, index) => (
                     <motion.div 
@@ -83,8 +75,7 @@ const AdminHome = () => {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: index * 0.1 }}
-                        className="group bg-white p-1 rounded-[35px] border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500"
-                    >
+                        className="group bg-white p-1 rounded-[35px] border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500" >
                         <div className="bg-white rounded-[34px] p-7 flex flex-col items-center text-center">
                             <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${stat.gradient} text-white flex items-center justify-center text-2xl mb-6 shadow-xl ${stat.shadow} group-hover:scale-110 transition-transform duration-500`}>
                                 {stat.icon}
@@ -95,10 +86,7 @@ const AdminHome = () => {
                     </motion.div>
                 ))}
             </div>
-
-            {/* 3. Quick Actions with Modern Layout */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Visual Chart Placeholder */}
                 <div className="lg:col-span-2 bg-slate-900 rounded-[45px] p-10 text-white relative overflow-hidden group">
                      <div className="absolute top-0 right-0 p-8 opacity-10 rotate-12 group-hover:rotate-0 transition-transform duration-700">
                         <FaChartBar size={150} />
@@ -117,7 +105,6 @@ const AdminHome = () => {
                      </div>
                 </div>
 
-                {/* Right Side Stats/Help */}
                 <div className="bg-white rounded-[45px] border border-slate-100 p-10 shadow-sm flex flex-col justify-between">
                     <div>
                         <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6">

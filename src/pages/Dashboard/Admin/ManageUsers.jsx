@@ -1,4 +1,3 @@
-// src/pages/Dashboard/Admin/ManageUsers.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -79,9 +78,8 @@ const ManageUsers = () => {
         <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-8"
-        >
-            {/* Header section with Stats Highlight */}
+            className="space-y-8" >
+
             <div className="bg-white p-8 rounded-[35px] shadow-sm border border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
                 <div>
                     <h1 className="text-3xl font-black text-slate-800 tracking-tight italic">
@@ -98,8 +96,6 @@ const ManageUsers = () => {
                     </div>
                 </div>
             </div>
-
-            {/* User List Table */}
             <div className="bg-white rounded-[40px] shadow-sm border border-slate-100 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="table w-full border-separate border-spacing-y-4 px-8">
@@ -114,7 +110,6 @@ const ManageUsers = () => {
                         <tbody>
                             {users.map((userItem) => (
                                 <tr key={userItem._id} className="group bg-slate-50/50 hover:bg-white hover:shadow-xl hover:shadow-slate-200 transition-all duration-300">
-                                    {/* User Identity Column */}
                                     <td className="rounded-l-[25px] border-none py-6 pl-8">
                                         <div className="flex items-center gap-4">
                                             <div className="avatar">
@@ -131,24 +126,18 @@ const ManageUsers = () => {
                                             </div>
                                         </div>
                                     </td>
-
-                                    {/* Contact Details Column */}
                                     <td className="border-none">
                                         <div className="flex items-center gap-2 text-slate-600 font-bold">
                                             <FaEnvelope className="text-blue-400" size={12} />
                                             <span className="text-sm">{userItem.email}</span>
                                         </div>
                                     </td>
-
-                                    {/* Role Badge Column */}
                                     <td className="border-none">
                                         <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-xl border text-[10px] font-black uppercase tracking-widest ${getRoleStyles(userItem.role)}`}>
                                             {getRoleIcon(userItem.role)}
                                             {userItem.role}
                                         </div>
                                     </td>
-
-                                    {/* Actions Column */}
                                     <td className="rounded-r-[25px] border-none pr-8">
                                         <div className="flex justify-end gap-3">
                                             <button 
@@ -158,8 +147,7 @@ const ManageUsers = () => {
                                                     ${userItem.role === 'Admin' 
                                                         ? 'bg-slate-50 text-slate-300 border border-slate-100' 
                                                         : 'bg-white text-rose-500 border border-rose-100 hover:bg-rose-500 hover:text-white hover:shadow-rose-200'
-                                                    }`}
-                                            >
+                                                    }`}>
                                                 <FaUserShield /> Promote Admin
                                             </button>
 
