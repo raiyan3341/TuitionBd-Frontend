@@ -1,10 +1,9 @@
-// src/pages/Login/Login.jsx
 import React from 'react';
 import useAuth from '../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaEnvelope, FaLock, FaArrowRight } from 'react-icons/fa';
 import axios from 'axios';
-import { motion } from 'framer-motion'; // এনিমেশনের জন্য
+import { motion } from 'framer-motion';
 
 const Login = () => {
     const { signIn, googleSignIn, loading } = useAuth();
@@ -60,8 +59,6 @@ const Login = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#667eea] via-[#764ba2] to-[#6B8DD6] p-4 relative overflow-hidden">
-            
-            {/* Background Decorative Elements */}
             <div className="absolute top-[-10%] left-[-10%] w-72 h-72 bg-white opacity-10 rounded-full blur-3xl"></div>
             <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-blue-400 opacity-20 rounded-full blur-3xl"></div>
 
@@ -72,13 +69,11 @@ const Login = () => {
                 className="container max-w-5xl mx-auto flex flex-col lg:flex-row items-center bg-white/10 backdrop-blur-xl rounded-[40px] shadow-2xl border border-white/20 overflow-hidden"
             >
                 
-                {/* Left Side: Info & Visual */}
                 <div className="w-full lg:w-1/2 p-12 text-white hidden lg:block">
                     <motion.div
                         initial={{ x: -50 }}
                         animate={{ x: 0 }}
-                        transition={{ delay: 0.2 }}
-                    >
+                        transition={{ delay: 0.2 }}>
                         <h1 className="text-6xl font-black mb-6 leading-tight">
                             Welcome <br /> <span className="text-yellow-300">Back!</span>
                         </h1>
@@ -98,7 +93,6 @@ const Login = () => {
                     </motion.div>
                 </div>
 
-                {/* Right Side: Login Form */}
                 <div className="w-full lg:w-1/2 bg-white p-8 md:p-16">
                     <div className="text-center lg:text-left mb-10">
                         <h2 className="text-3xl font-bold text-gray-800">Login to Account</h2>
@@ -115,8 +109,7 @@ const Login = () => {
                                     name="email" 
                                     placeholder="Enter your email" 
                                     className="input input-bordered w-full pl-12 rounded-2xl bg-gray-50 border-gray-200 focus:border-primary transition-all" 
-                                    required 
-                                />
+                                    required />
                             </div>
                         </div>
 
@@ -161,7 +154,7 @@ const Login = () => {
     );
 };
 
-// Helper component for checklist
+
 const FaCheckCircle = () => (
     <svg fill="currentColor" viewBox="0 0 20 20" className="w-5 h-5"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
 );
