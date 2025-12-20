@@ -13,7 +13,7 @@ const AppliedTutors = () => {
     const [loading, setLoading] = useState(true);
     const [selectedApplicationForPayment, setSelectedApplicationForPayment] = useState(null); 
     const [contactInfo, setContactInfo] = useState(null); 
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
     const fetchAppliedTutors = () => {
         setLoading(true);
         const token = localStorage.getItem('tuition-access-token');

@@ -10,7 +10,7 @@ const Tutors = () => {
     const [tutors, setTutors] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
 
     useEffect(() => {
         setLoading(true);

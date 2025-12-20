@@ -18,7 +18,7 @@ const TuitionListing = () => {
     const [role, setRole] = useState(null);
     const [selectedTuition, setSelectedTuition] = useState(null);
     
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
 
     useEffect(() => {
         const fetchData = async () => {

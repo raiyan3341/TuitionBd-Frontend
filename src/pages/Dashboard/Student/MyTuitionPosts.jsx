@@ -14,7 +14,7 @@ const MyTuitions = () => {
     const [tuitions, setTuitions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedTuition, setSelectedTuition] = useState(null); // For update modal
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
 
     // Hardcoded options (must match PostNewTuition.jsx)
     const subjects = ["Bangla", "English", "Math", "Physics", "Chemistry", "Biology", "ICT", "General Science"];

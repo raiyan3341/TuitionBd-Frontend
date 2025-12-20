@@ -18,7 +18,7 @@ const DashboardLayout = () => {
   const [dbUser, setDbUser] = useState(null);
   const location = useLocation();
 
-  const BASE_URL = "http://localhost:3000";
+  const BASE_URL = "https://tuition-bd-backend.vercel.app";
 
   useEffect(() => {
     if (user?.email) {

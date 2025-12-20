@@ -8,7 +8,7 @@ import { FaGoogle, FaUser, FaEnvelope, FaLock, FaPhone, FaUserTag, FaRocket } fr
 const Register = () => {
     const { createUser, googleSignIn, updateUserProfile, loading } = useAuth();
     const navigate = useNavigate();
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
 
     const handleRegister = async (e) => {
         e.preventDefault();

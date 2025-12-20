@@ -8,7 +8,7 @@ const RoleBasedHome = () => {
     const { user, loading: authLoading } = useAuth();
     const [role, setRole] = useState(null);
     const [roleLoading, setRoleLoading] = useState(true);
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
     useEffect(() => {
         if (user?.email) {
             setRoleLoading(true);

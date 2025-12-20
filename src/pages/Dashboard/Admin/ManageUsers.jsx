@@ -10,7 +10,7 @@ const ManageUsers = () => {
     const { user } = useAuth();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
 
     const fetchUsers = () => {
         setLoading(true);

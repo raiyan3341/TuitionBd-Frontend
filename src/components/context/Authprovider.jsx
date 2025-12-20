@@ -18,7 +18,7 @@ const Authprovider = ({ children }) => {
 
     // Providers
     const googleProvider = new GoogleAuthProvider();
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
     const createUser = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);

@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 
 const PostNewTuition = () => {
     const { user } = useAuth();
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
     
     const subjects = ["Bangla", "English", "Math", "Physics", "Chemistry", "Biology", "ICT", "General Science"];
     const classes = ["Class 1", "Class 5", "Class 8", "SSC", "HSC", "University"];

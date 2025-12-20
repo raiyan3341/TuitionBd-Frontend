@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 const Login = () => {
     const { signIn, googleSignIn, loading } = useAuth();
     const navigate = useNavigate();
-    const BASE_URL = "http://localhost:3000";
+    const BASE_URL = "https://tuition-bd-backend.vercel.app";
 
     const redirectUserByRole = (role) => {
         if (role === "Admin") navigate('/dashboard/admin-home');

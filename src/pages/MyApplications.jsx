@@ -11,7 +11,7 @@ const MyApplications = () => {
     const { user } = useAuth();
     const [applications, setApplications] = useState([]);
     const [loading, setLoading] = useState(true);
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
 
     const fetchMyApplications = async () => {
         setLoading(true);

@@ -12,7 +12,7 @@ const CheckoutForm = ({ tuition, feeAmount, closePaymentModal }) => {
     const [cardError, setCardError] = useState('');
     const [clientSecret, setClientSecret] = useState('');
     const [processing, setProcessing] = useState(false);
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
 
     useEffect(() => {
         if (feeAmount > 0) {

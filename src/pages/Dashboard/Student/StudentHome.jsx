@@ -11,7 +11,7 @@ const StudentHome = () => {
     const { user } = useAuth();
     const [stats, setStats] = useState({ totalPosts: 0, totalApplications: 0, hiredTutor: 0 });
     const [loading, setLoading] = useState(true);
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
 
     useEffect(() => {
         const fetchStudentStats = async () => {

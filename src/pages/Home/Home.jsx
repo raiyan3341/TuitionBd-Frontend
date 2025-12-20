@@ -8,7 +8,7 @@ import TuitionCard from '../../components/TuitionCard';
 const Home = () => {
     const [latestTuitions, setLatestTuitions] = useState([]);
     const [loadingTuitions, setLoadingTuitions] = useState(true);
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
 
     useEffect(() => {
         setLoadingTuitions(true);

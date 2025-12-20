@@ -12,7 +12,7 @@ const RevenueHistory = () => {
     useEffect(() => {
         if (user?.email) {
             setLoading(true);
-            axios.get(`http://localhost:3000/revenue-history?email=${user.email}`)
+            axios.get(`https://tuition-bd-backend.vercel.app/revenue-history?email=${user.email}`)
                 .then(res => {
                     setHistory(res.data);
                 })

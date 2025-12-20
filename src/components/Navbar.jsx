@@ -8,7 +8,7 @@ const Navbar = () => {
   const { user, logOut, loading } = useAuth();
   const [role, setRole] = useState(null);
   const [dbUser, setDbUser] = useState(null);
-  const BASE_URL = "http://localhost:3000";
+  const BASE_URL = "https://tuition-bd-backend.vercel.app";
 
   useEffect(() => {
         if (user?.email) {

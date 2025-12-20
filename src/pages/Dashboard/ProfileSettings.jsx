@@ -15,7 +15,7 @@ const ProfileSettings = () => {
     const [uploading, setUploading] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
 
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
 
     useEffect(() => {
         if (user?.email) {

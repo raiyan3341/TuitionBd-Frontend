@@ -13,7 +13,7 @@ const MyHiredTuitions = () => {
     const [loading, setLoading] = useState(true);
     const [contactInfo, setContactInfo] = useState(null); 
     const [modalLoading, setModalLoading] = useState(false);
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = 'https://tuition-bd-backend.vercel.app';
 
     const fetchHiredApplications = async () => {
         if (!user?.email) return;
