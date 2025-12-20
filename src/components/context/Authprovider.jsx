@@ -8,7 +8,7 @@ import {
     signInWithPopup,
     updateProfile
 } from 'firebase/auth';
-import { auth } from '../firebase/firebase.init';
+import { auth } from '../Firebase/firebase.init';
 import axios from 'axios';
 export const AuthContext = createContext(null);
 
