@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { FaUserGraduate, FaChalkboardTeacher, FaCheckCircle, FaRocket, FaSearch } from 'react-icons/fa'; 
 import TuitionCard from '../../components/TuitionCard';
 
 const Home = () => {
+    const navigate = useNavigate();
     const [latestTuitions, setLatestTuitions] = useState([]);
     const [loadingTuitions, setLoadingTuitions] = useState(true);
     const BASE_URL = 'https://tuition-bd-backend.vercel.app';
@@ -94,9 +96,9 @@ const Home = () => {
                             {latestTuitions.map(tuition => (
                                 <div key={tuition._id} className="hover:scale-[1.02] transition-transform">
                                     <TuitionCard 
-                                        tuition={tuition} 
-                                        onApplyClick={() => window.location.href = "/tuitions"} 
-                                    />
+        tuition={tuition} 
+        onApplyClick={() => navigate("/tuitions")}
+    />
                                 </div>
                             ))}
                         </div>

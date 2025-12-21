@@ -202,7 +202,7 @@ const TuitionListing = () => {
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                             className="text-center bg-white p-24 rounded-[60px] shadow-sm border border-slate-100"
                         >
-                            <img src="https://cdni.iconscout.com/illustration/premium/thumb/no-data-found-8867280-7265556.png" alt="Empty" className="w-64 mx-auto opacity-30 mb-6" />
+                            <img src="" alt="" className="w-64 mx-auto opacity-30 mb-6" />
                             <h3 className="text-3xl font-black text-slate-300 tracking-tighter uppercase">No Live Tuitions Found</h3>
                         </motion.div>
                     ) : (
