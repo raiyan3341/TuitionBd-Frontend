@@ -1,52 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaGoogle, FaEnvelope, FaLock, FaArrowRight } from 'react-icons/fa';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { FaGoogle, FaEnvelope, FaLock, FaArrowRight, FaCheckCircle, FaUserShield, FaUserGraduate } from 'react-icons/fa';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const { signIn, googleSignIn, loading } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
     const BASE_URL = "https://tuition-bd-backend.vercel.app";
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const redirectUserByRole = (role) => {
         if (role === "Admin") navigate('/dashboard/admin-home');
         else if (role === "Tutor") navigate('/dashboard/tutor-home');
-        else navigate('/dashboard/student-home');
+        else navigate(from, { replace: true });
     };
 
     const handleLogin = async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const email = form.email.value;
-        const password = form.password.value;
-
+        if (e) e.preventDefault();
         try {
             await signIn(email, password);
             const res = await axios.get(`${BASE_URL}/users/${email}`);
-            const userRole = res.data.role;
-            redirectUserByRole(userRole);
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Successful!',
+                showConfirmButton: false,
+                timer: 1500,
+                background: '#fff',
+                color: '#1e293b'
+            });
+            redirectUserByRole(res.data.role);
         } catch (error) {
-            console.error(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Failed',
+                text: 'Invalid email or password. Please try again.',
+                confirmButtonColor: '#3b82f6'
+            });
         }
     };
-    
-    const handleGoogleSignIn = async () => {
-        try {
-            const result = await googleSignIn();
-            const user = result.user;
-            const userInfo = {
-                name: user.displayName,
-                email: user.email,
-                role: 'Student'
-            };
-            const res = await axios.post(`${BASE_URL}/users`, userInfo);
-            const currentRole = res.data.role || 'Student';
-            redirectUserByRole(currentRole);
-        } catch (error) {
-            console.error("Google Login Error:", error);
+
+    const handleDemoLogin = (role) => {
+        if (role === 'tutor') {
+            setEmail('tutor@demo.com');
+            setPassword('123456');
+        } else {
+            setEmail('student@demo.com');
+            setPassword('123456');
         }
+        setTimeout(() => {
+            Swal.fire({
+                title: 'Demo credentials loaded!',
+                text: 'Click Login to proceed',
+                icon: 'info',
+                timer: 1000,
+                showConfirmButton: false
+            });
+        }, 100);
     };
 
     if (loading) {
@@ -65,29 +81,29 @@ const Login = () => {
             <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
                 className="container max-w-5xl mx-auto flex flex-col lg:flex-row items-center bg-white/10 backdrop-blur-xl rounded-[40px] shadow-2xl border border-white/20 overflow-hidden"
             >
-                
                 <div className="w-full lg:w-1/2 p-12 text-white hidden lg:block">
-                    <motion.div
-                        initial={{ x: -50 }}
-                        animate={{ x: 0 }}
-                        transition={{ delay: 0.2 }}>
-                        <h1 className="text-6xl font-black mb-6 leading-tight">
-                            Welcome <br /> <span className="text-yellow-300">Back!</span>
-                        </h1>
-                        <p className="text-lg text-white/80 mb-8">
-                            Join thousands of students and tutors today. Access your profile, track applications, and manage payments with ease.
-                        </p>
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-4 bg-white/10 p-4 rounded-2xl">
-                                <div className="bg-yellow-400 p-3 rounded-xl text-gray-900"><FaCheckCircle /></div>
-                                <p className="font-medium">Verified Tutor Profiles</p>
-                            </div>
-                            <div className="flex items-center gap-4 bg-white/10 p-4 rounded-2xl">
-                                <div className="bg-blue-400 p-3 rounded-xl text-white"><FaLock /></div>
-                                <p className="font-medium">Secure Payment System</p>
+                    <motion.div initial={{ x: -50 }} animate={{ x: 0 }}>
+                        <h1 className="text-6xl font-black mb-6 leading-tight">Welcome <br /> <span className="text-yellow-300">Back!</span></h1>
+                        
+                        <div className="space-y-4 mt-8">
+                            <p className="text-xs font-bold uppercase tracking-widest text-blue-200">Test the platform as:</p>
+                            <div className="flex flex-col gap-3">
+                                <button 
+                                    onClick={() => handleDemoLogin('tutor')}
+                                    className="flex items-center gap-4 bg-white/10 p-4 rounded-2xl hover:bg-white/20 transition-all border border-white/10 group"
+                                >
+                                    <div className="bg-yellow-400 p-2 rounded-lg text-gray-900 group-hover:scale-110 transition-transform"><FaUserShield /></div>
+                                    <span className="font-bold">Demo Tutor</span>
+                                </button>
+                                <button 
+                                    onClick={() => handleDemoLogin('student')}
+                                    className="flex items-center gap-4 bg-white/10 p-4 rounded-2xl hover:bg-white/20 transition-all border border-white/10 group"
+                                >
+                                    <div className="bg-blue-400 p-2 rounded-lg text-white group-hover:scale-110 transition-transform"><FaUserGraduate /></div>
+                                    <span className="font-bold">Demo Student</span>
+                                </button>
                             </div>
                         </div>
                     </motion.div>
@@ -101,51 +117,45 @@ const Login = () => {
 
                     <form onSubmit={handleLogin} className="space-y-6">
                         <div className="form-control">
-                            <label className="label text-gray-700 font-bold uppercase text-xs tracking-wider">Email Address</label>
+                            <label className="label text-gray-700 font-bold uppercase text-xs">Email Address</label>
                             <div className="relative">
                                 <FaEnvelope className="absolute left-4 top-4 text-gray-400" />
                                 <input 
                                     type="email" 
-                                    name="email" 
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     placeholder="Enter your email" 
-                                    className="input input-bordered w-full pl-12 rounded-2xl bg-gray-50 border-gray-200 focus:border-primary transition-all" 
+                                    className="input input-bordered w-full pl-12 rounded-2xl bg-gray-50" 
                                     required />
                             </div>
                         </div>
 
                         <div className="form-control">
-                            <label className="label text-gray-700 font-bold uppercase text-xs tracking-wider">Password</label>
+                            <label className="label text-gray-700 font-bold uppercase text-xs">Password</label>
                             <div className="relative">
                                 <FaLock className="absolute left-4 top-4 text-gray-400" />
                                 <input 
                                     type="password" 
-                                    name="password" 
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••" 
-                                    className="input input-bordered w-full pl-12 rounded-2xl bg-gray-50 border-gray-200 focus:border-primary transition-all" 
+                                    className="input input-bordered w-full pl-12 rounded-2xl bg-gray-50" 
                                     required 
                                 />
                             </div>
-                            <div className="flex justify-end mt-2">
-                                <a href="#" className="text-xs font-bold text-primary hover:underline">Forgot password?</a>
-                            </div>
                         </div>
 
-                        <button type="submit" className="btn btn-primary w-full h-14 rounded-2xl text-white font-bold text-lg shadow-lg shadow-blue-200 flex items-center justify-center gap-2 hover:scale-[1.02] transition-all">
+                        <button type="submit" className="btn btn-primary w-full h-14 rounded-2xl text-white font-bold text-lg shadow-lg">
                             Login <FaArrowRight />
                         </button>
                     </form>
 
-                    <div className="divider text-gray-400 my-8 uppercase text-[10px] font-bold tracking-[2px]">Or sign in with</div>
-                    
-                    <button 
-                        onClick={handleGoogleSignIn} 
-                        className="btn btn-outline border-gray-200 w-full h-14 rounded-2xl gap-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all font-bold"
-                    >
-                        <FaGoogle className="text-red-500 text-xl" />
-                        Sign in with Google
+                    <div className="divider text-gray-400 my-8 uppercase text-[10px] font-bold">Or sign in with</div>
+                    <button onClick={googleSignIn} className="btn btn-outline border-gray-200 w-full h-14 rounded-2xl gap-3 text-gray-600 font-bold hover:bg-gray-50">
+                        <FaGoogle className="text-red-500 text-xl" /> Sign in with Google
                     </button>
 
-                    <p className="text-center mt-10 text-gray-500 font-medium">
+                    <p className="text-center mt-10 text-gray-500">
                         Don't have an account? <Link to="/register" className="text-primary font-bold hover:underline">Sign Up</Link>
                     </p>
                 </div>
@@ -153,10 +163,5 @@ const Login = () => {
         </div>
     );
 };
-
-
-const FaCheckCircle = () => (
-    <svg fill="currentColor" viewBox="0 0 20 20" className="w-5 h-5"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
-);
 
 export default Login;

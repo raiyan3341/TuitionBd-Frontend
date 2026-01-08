@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaSearch, FaFilter, FaPaperPlane, FaTimes, FaWallet, FaGraduationCap, FaChalkboardTeacher, FaUsers, FaCheckCircle, FaStar } from 'react-icons/fa';
+import { FaSearch, FaFilter, FaPaperPlane, FaTimes, FaChalkboardTeacher, FaCheckCircle } from 'react-icons/fa';
 import LoadingPage from '../components/LoadingPage';
 import TuitionCard from '../components/TuitionCard';
 import useAuth from '../hooks/useAuth';
@@ -17,7 +17,11 @@ const TuitionListing = () => {
     const [loading, setLoading] = useState(true);
     const [role, setRole] = useState(null);
     const [selectedTuition, setSelectedTuition] = useState(null);
-    
+
+    const [searchQuery, setSearchQuery] = useState("");
+    const [selectedClass, setSelectedClass] = useState("");
+    const [sortBy, setSortBy] = useState("newest");
+
     const BASE_URL = 'https://tuition-bd-backend.vercel.app';
 
     useEffect(() => {
@@ -40,6 +44,23 @@ const TuitionListing = () => {
         };
         fetchData();
     }, [user?.email]);
+
+    const filteredTuitions = useMemo(() => {
+        let result = tuitions.filter((t) => {
+            const matchesSubject = t.subject?.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesClass = selectedClass === "" || t.class?.includes(selectedClass);
+            return matchesSubject && matchesClass;
+        });
+
+
+        if (sortBy === "salary") {
+            result.sort((a, b) => (b.salary || 0) - (a.salary || 0));
+        } else {
+            result.sort((a, b) => new Date(b.createdAt || b.appliedAt) - new Date(a.createdAt || a.appliedAt));
+        }
+
+        return result;
+    }, [tuitions, searchQuery, selectedClass, sortBy]);
 
     const handleApplyClick = useCallback((tuitionData) => {
         if (!user) {
@@ -107,53 +128,18 @@ const TuitionListing = () => {
     return (
         <div className="bg-[#fcfcfd] min-h-screen">
             <section className="relative pt-32 pb-24 px-6 bg-gradient-to-br from-slate-900 via-[#1e293b] to-slate-900 overflow-hidden rounded-b-[60px] md:rounded-b-[100px] shadow-2xl">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px]"></div>
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[100px]"></div>
-
                 <div className="container mx-auto relative">
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-                        <motion.div 
-                            initial={{ opacity: 0, x: -30 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="text-center lg:text-left max-w-2xl">
+                        <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} className="text-center lg:text-left max-w-2xl">
                             <span className="inline-block px-4 py-2 bg-blue-500/20 backdrop-blur-md border border-blue-400/30 text-blue-300 rounded-2xl text-xs font-black uppercase tracking-[3px] mb-6">
                                 Marketplace
                             </span>
                             <h1 className="text-5xl md:text-7xl font-black text-white leading-tight mb-6">
                                 Find the Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Teaching Job</span>
                             </h1>
-                            <p className="text-xl text-slate-400 font-medium leading-relaxed mb-10">
-                                Connect with students who need your expertise. Explore thousands of active tuition posts and start your journey today.
-                            </p>
-                            <div className="flex flex-wrap justify-center lg:justify-start gap-8 md:gap-12">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-blue-400 border border-white/10 shadow-inner">
-                                        <FaChalkboardTeacher size={24} />
-                                    </div>
-                                    <div className="text-left">
-                                        <h4 className="text-white text-2xl font-black">{tuitions.length}+</h4>
-                                        <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Active Posts</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-emerald-400 border border-white/10 shadow-inner">
-                                        <FaCheckCircle size={22} />
-                                    </div>
-                                    <div className="text-left">
-                                        <h4 className="text-white text-2xl font-black">100%</h4>
-                                        <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Verified Ads</p>
-                                    </div>
-                                </div>
-                            </div>
                         </motion.div>
 
-                        <motion.div 
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="w-full lg:max-w-md bg-white/5 backdrop-blur-2xl p-8 rounded-[40px] border border-white/10 shadow-3xl relative overflow-hidden group" >
-                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:rotate-12 transition-transform">
-                                <FaSearch size={80} />
-                            </div>
+                        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="w-full lg:max-w-md bg-white/5 backdrop-blur-2xl p-8 rounded-[40px] border border-white/10 shadow-3xl">
                             <h3 className="text-white font-bold text-xl mb-6 flex items-center gap-2">
                                 <FaFilter className="text-blue-400 text-sm" /> Quick Discovery
                             </h3>
@@ -162,18 +148,26 @@ const TuitionListing = () => {
                                     <FaSearch className="absolute left-5 top-5 text-slate-400" />
                                     <input 
                                         type="text" 
-                                        placeholder="Subject ( Physics)" 
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        placeholder="Search Subject (e.g. Physics)" 
                                         className="w-full h-16 pl-14 pr-4 rounded-2xl bg-white text-slate-900 shadow-xl focus:ring-4 focus:ring-blue-500/20 border-none transition-all outline-none font-medium"
                                     />
                                 </div>
                                 <div className="grid grid-cols-2 gap-3">
-                                    <select className="select select-bordered rounded-2xl bg-white text-slate-700 h-14 border-none shadow-md font-bold text-xs">
-                                        <option disabled selected>Class Level</option>
-                                        <option>Class 1-8</option>
-                                        <option>HSC</option>
+                                    <select 
+                                        value={selectedClass}
+                                        onChange={(e) => setSelectedClass(e.target.value)}
+                                        className="select select-bordered rounded-2xl bg-white text-slate-700 h-14 border-none shadow-md font-bold text-xs"
+                                    >
+                                        <option value="">All Classes</option>
+                                        <option value="Class 1-8">Class 1-8</option>
+                                        <option value="Class 9-10">Class 9-10</option>
+                                        <option value="HSC">HSC</option>
+                                        <option value="Admission">Admission</option>
                                     </select>
-                                    <button className="btn bg-blue-600 hover:bg-blue-700 border-none rounded-2xl h-14 text-white font-black shadow-lg shadow-blue-500/20">
-                                        Search
+                                    <button className="btn bg-blue-600 hover:bg-blue-700 border-none rounded-2xl h-14 text-white font-black shadow-lg">
+                                        Active Search
                                     </button>
                                 </div>
                             </div>
@@ -182,39 +176,40 @@ const TuitionListing = () => {
                 </div>
             </section>
 
-            <div className="container mx-auto px-6 mt-10 relative  pb-20">
+            <div className="container mx-auto px-6 mt-10 relative pb-20">
                 <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
                     <div className="text-center md:text-left">
                         <h2 className="text-3xl font-black text-slate-800">Latest <span className="text-blue-600">Postings</span></h2>
-                        <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mt-1">Showing {tuitions.length} verified opportunities</p>
+                        <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mt-1">Showing {filteredTuitions.length} results</p>
                     </div>
                     <div className="flex gap-2">
                          <div className="bg-white p-2 rounded-2xl shadow-sm border border-slate-100 flex gap-1">
-                            <button className="btn btn-sm btn-ghost rounded-xl text-blue-600 font-black">Newest</button>
-                            <button className="btn btn-sm btn-ghost rounded-xl text-slate-400">Salary</button>
+                            <button 
+                                onClick={() => setSortBy("newest")}
+                                className={`btn btn-sm rounded-xl font-black ${sortBy === 'newest' ? 'bg-blue-600 text-white' : 'btn-ghost text-slate-400'}`}
+                            >Newest</button>
+                            <button 
+                                onClick={() => setSortBy("salary")}
+                                className={`btn btn-sm rounded-xl font-black ${sortBy === 'salary' ? 'bg-blue-600 text-white' : 'btn-ghost text-slate-400'}`}
+                            >Salary</button>
                          </div>
+                         {(searchQuery || selectedClass) && (
+                             <button onClick={() => {setSearchQuery(""); setSelectedClass("")}} className="text-red-500 text-xs font-bold hover:underline">Clear All</button>
+                         )}
                     </div>
                 </div>
 
-                <AnimatePresence>
-                    {tuitions.length === 0 ? (
-                        <motion.div 
-                            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                            className="text-center bg-white p-24 rounded-[60px] shadow-sm border border-slate-100"
-                        >
-                            <img src="" alt="" className="w-64 mx-auto opacity-30 mb-6" />
-                            <h3 className="text-3xl font-black text-slate-300 tracking-tighter uppercase">No Live Tuitions Found</h3>
+                <AnimatePresence mode='wait'>
+                    {filteredTuitions.length === 0 ? (
+                        <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center bg-white p-24 rounded-[60px] shadow-sm border border-slate-100">
+                            <h3 className="text-3xl font-black text-slate-300 tracking-tighter uppercase">No Matching Tuitions Found</h3>
                         </motion.div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-                            {tuitions.map((item) => (
-                                <TuitionCard 
-                                    key={item._id}
-                                    tuition={item} 
-                                    onApplyClick={handleApplyClick} 
-                                />
+                        <motion.div key="grid" layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                            {filteredTuitions.map((item) => (
+                                <TuitionCard key={item._id} tuition={item} onApplyClick={handleApplyClick} />
                             ))}
-                        </div>
+                        </motion.div>
                     )}
                 </AnimatePresence>
             </div>
